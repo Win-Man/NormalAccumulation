@@ -1,4 +1,4 @@
-[题目链接](https://www.patest.cn/contests/pat-b-practise/1001)
+[害死人不偿命的(3n+1)猜想](https://www.patest.cn/contests/pat-b-practise/1001)
 
 **AC code:**
 
