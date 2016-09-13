@@ -1,5 +1,7 @@
 [Pop Sequence ](https://www.patest.cn/contests/pat-a-practise/1051)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<stack>

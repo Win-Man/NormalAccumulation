@@ -1,5 +1,7 @@
 [害死人不偿命的(3n+1)猜想 ](https://www.patest.cn/contests/pat-b-practise/1001)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 using namespace std;

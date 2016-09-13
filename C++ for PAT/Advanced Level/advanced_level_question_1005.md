@@ -1,5 +1,7 @@
 [Spell It Right ](https://www.patest.cn/contests/pat-a-practise/1005)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

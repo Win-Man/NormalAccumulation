@@ -1,5 +1,7 @@
 [µ½µ×Âò²»Âò](https://www.patest.cn/contests/pat-b-practise/1039)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

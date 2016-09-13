@@ -1,5 +1,7 @@
 [换个格式输出整数 ](https://www.patest.cn/contests/pat-b-practise/1006)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

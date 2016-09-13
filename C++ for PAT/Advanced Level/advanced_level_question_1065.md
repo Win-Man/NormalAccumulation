@@ -1,5 +1,7 @@
 [A+B and C (64bit) ](https://www.patest.cn/contests/pat-a-practise/1065)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 using namespace std;

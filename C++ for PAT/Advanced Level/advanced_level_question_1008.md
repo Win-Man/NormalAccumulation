@@ -1,5 +1,7 @@
 [Elevator ](https://www.patest.cn/contests/pat-a-practise/1008)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<vector>

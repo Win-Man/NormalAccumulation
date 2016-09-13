@@ -1,5 +1,7 @@
 [A+B for Polynomials ](https://www.patest.cn/contests/pat-a-practise/1002)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<map>

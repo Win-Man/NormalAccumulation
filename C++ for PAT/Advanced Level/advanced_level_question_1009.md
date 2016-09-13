@@ -1,5 +1,7 @@
 [Product of Polynomials ](https://www.patest.cn/contests/pat-a-practise/1009)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<vector>

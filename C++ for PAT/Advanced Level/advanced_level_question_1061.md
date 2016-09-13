@@ -1,5 +1,7 @@
 [Dating ](https://www.patest.cn/contests/pat-a-practise/1061)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

@@ -1,5 +1,7 @@
 [Longest Symmetric String ](https://www.patest.cn/contests/pat-a-practise/1040)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

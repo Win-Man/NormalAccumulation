@@ -1,5 +1,7 @@
 [¼ÌĞø(3n+1)²ÂÏë ](https://www.patest.cn/contests/pat-b-practise/1005)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

@@ -1,5 +1,7 @@
 [科学计数法 ](https://www.patest.cn/contests/pat-b-practise/1024)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

@@ -1,5 +1,7 @@
 [List Sorting ](https://www.patest.cn/contests/pat-a-practise/1028)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<vector>

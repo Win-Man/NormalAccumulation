@@ -1,5 +1,7 @@
 [完美数列](https://www.patest.cn/contests/pat-b-practise/1030)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<stdio.h>

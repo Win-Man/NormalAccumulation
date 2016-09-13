@@ -1,5 +1,7 @@
 [挖掘机技术哪家强](https://www.patest.cn/contests/pat-b-practise/1032)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

@@ -1,5 +1,7 @@
 [List Grades ](https://www.patest.cn/contests/pat-a-practise/1083)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<vector>

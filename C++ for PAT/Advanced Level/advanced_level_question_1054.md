@@ -1,5 +1,7 @@
 [The Dominant Color ](https://www.patest.cn/contests/pat-a-practise/1054)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<map>

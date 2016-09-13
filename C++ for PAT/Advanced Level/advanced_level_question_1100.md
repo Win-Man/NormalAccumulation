@@ -1,5 +1,7 @@
 [Mars Numbers ](https://www.patest.cn/contests/pat-a-practise/1100)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

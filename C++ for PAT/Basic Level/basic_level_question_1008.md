@@ -1,5 +1,7 @@
 [数组元素循环右移问题 ](https://www.patest.cn/contests/pat-b-practise/1008)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<vector>

@@ -1,5 +1,7 @@
 [´òÓ¡É³Â©](https://www.patest.cn/contests/pat-b-practise/1027)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

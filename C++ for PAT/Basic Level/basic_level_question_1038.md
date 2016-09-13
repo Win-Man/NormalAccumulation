@@ -1,5 +1,7 @@
 [统计同成绩学生](https://www.patest.cn/contests/pat-b-practise/1038)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

@@ -1,5 +1,7 @@
 [A+B in Hogwarts ](https://www.patest.cn/contests/pat-a-practise/1058)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<stdio.h>

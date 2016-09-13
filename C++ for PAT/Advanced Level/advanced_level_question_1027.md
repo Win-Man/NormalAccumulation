@@ -1,5 +1,7 @@
 [Colors in Mars ](https://www.patest.cn/contests/pat-a-practise/1027)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

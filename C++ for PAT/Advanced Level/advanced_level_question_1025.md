@@ -1,5 +1,7 @@
 [PAT Ranking ](https://www.patest.cn/contests/pat-a-practise/1025)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<vector>

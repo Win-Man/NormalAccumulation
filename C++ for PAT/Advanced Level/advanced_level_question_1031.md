@@ -1,5 +1,7 @@
 [Hello World for U ](https://www.patest.cn/contests/pat-a-practise/1031)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

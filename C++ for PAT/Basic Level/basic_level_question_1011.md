@@ -1,5 +1,7 @@
 [A+BºÍC ](https://www.patest.cn/contests/pat-b-practise/1011)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 using namespace std;

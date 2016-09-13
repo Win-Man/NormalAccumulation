@@ -1,5 +1,7 @@
 [程序运行时间](https://www.patest.cn/contests/pat-b-practise/1026)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<stdio.h>

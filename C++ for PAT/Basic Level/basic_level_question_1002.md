@@ -1,5 +1,7 @@
 [写出这个数 ](https://www.patest.cn/contests/pat-b-practise/1002)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

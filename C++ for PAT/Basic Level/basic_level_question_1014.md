@@ -1,5 +1,7 @@
 [福尔摩斯的约会 ](https://www.patest.cn/contests/pat-b-practise/1014)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

@@ -1,5 +1,7 @@
 [A+B Format ](https://www.patest.cn/contests/pat-a-practise/1001)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<vector>

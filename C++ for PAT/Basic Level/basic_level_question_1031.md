@@ -1,5 +1,7 @@
 [查验身份证](https://www.patest.cn/contests/pat-b-practise/1031)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

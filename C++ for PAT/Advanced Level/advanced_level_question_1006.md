@@ -1,5 +1,7 @@
 [Sign In and Sign Out ](https://www.patest.cn/contests/pat-a-practise/1006)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<stdio.h>

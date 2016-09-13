@@ -1,5 +1,7 @@
 [一元多项式求导 ](https://www.patest.cn/contests/pat-b-practise/1010)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

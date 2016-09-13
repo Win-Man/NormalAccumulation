@@ -1,5 +1,7 @@
 [跟奥巴马一起编程](https://www.patest.cn/contests/pat-b-practise/1036)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

@@ -1,5 +1,7 @@
 [组个最小数 ](https://www.patest.cn/contests/pat-b-practise/1023)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>

@@ -1,5 +1,7 @@
 [Password ](https://www.patest.cn/contests/pat-a-practise/1035)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<vector>

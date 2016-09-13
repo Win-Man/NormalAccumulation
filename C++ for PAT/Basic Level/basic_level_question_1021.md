@@ -1,5 +1,7 @@
 [个位数统计 ](https://www.patest.cn/contests/pat-b-practise/1021)
 
+**AC code:**
+
 ``` c++
 #include<iostream>
 #include<string>
