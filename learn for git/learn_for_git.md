@@ -13,7 +13,7 @@
 ## 分支
 
 ### 创建分支
-`git check -b 分支名`
+`git checkout -b 分支名`
 
 ```
 git branch 分支名
@@ -35,4 +35,5 @@ git checkout 分支名
 
 ### 删除分支
 
-`git branch -d dev`
+`git branch -d dev` 
+强制删除：`git branch -D dev` 
