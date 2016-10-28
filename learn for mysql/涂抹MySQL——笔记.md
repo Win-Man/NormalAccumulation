@@ -107,3 +107,10 @@ priv_type [(column_list)]
 ON [object_type] priv_level
 FROM user [, user] ...
 
+>REVOKE ALL PRIVILEGES,GRANT OPTION FROM user
+>收回所有权限
+
+### 18.删除用户
+
+> DROP USER user[,user]...
+
