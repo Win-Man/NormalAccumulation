@@ -76,3 +76,34 @@ Or
 > RENAME TABLE tbl_name TO new_tbl_name
 
 ## 权限
+
+### 13.创建用户
+
+> CREATE USER user_specification [, user_specification] ...
+
+### 14.修改密码
+
+> SET PASSWORD [FOR user] = password_option
+
+### 15.授予权限
+
+> GRANT
+priv_type [(column_list)]
+  [, priv_type [(column_list)]] ...
+ON [object_type] priv_level
+TO user_specification [, user_specification] ...
+[REQUIRE {NONE | tls_option [[AND] tls_option] ...}]
+[WITH {GRANT OPTION | resource_option} ...]
+
+### 16.查看权限
+
+> SHOW GRANTS [FOR user]
+
+### 17.收回权限
+
+> REVOKE
+priv_type [(column_list)]
+  [, priv_type [(column_list)]] ...
+ON [object_type] priv_level
+FROM user [, user] ...
+
