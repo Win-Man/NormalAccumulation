@@ -114,3 +114,19 @@ FROM user [, user] ...
 
 > DROP USER user[,user]...
 
+### 19.指定客户端当前会话使用的字符集
+
+>SET NAMES {'charset_name'
+[COLLATE 'collation_name'] | DEFAULT}
+
+## 字符集
+
+### 20.显示数据库当前所支持的字符集
+
+> show character set;
+
+## 存储引擎
+
+### 21.显示当前 MySQL 数据所支持的存储引擎
+
+> SHOW ENGINES;
