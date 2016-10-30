@@ -75,8 +75,6 @@ Or
 
 > RENAME TABLE tbl_name TO new_tbl_name
 
-## 权限
-
 ### 13.创建用户
 
 > CREATE USER user_specification [, user_specification] ...
@@ -119,13 +117,9 @@ FROM user [, user] ...
 >SET NAMES {'charset_name'
 [COLLATE 'collation_name'] | DEFAULT}
 
-## 字符集
-
 ### 20.显示数据库当前所支持的字符集
 
 > show character set;
-
-## 存储引擎
 
 ### 21.显示当前 MySQL 数据所支持的存储引擎
 
