@@ -89,6 +89,42 @@ InnoDB 存储引擎采用聚集的方式，因此每张表的存储都是按主�
 ### 2.3.1 后台线程
 
 - **1.Master Thread**
+
+将缓冲池中的数据**异步**刷新到磁盘，保证数据的一致性，包括脏页的刷新、合并插入缓冲、UNDO页的回收。
+
 - **2.IO Thread**
+
+处理 IO 请求
+包括 write、read、insert buffer和log IO thread
+
 - **3.Purge Thread**
+
+回收已经使用并分配的 undo 页。1.2版本之前只支持一个 Purge Thread 线程
+
 - **4.Page Cleaner Thread**
+
+在 1.2.x 版本中引入，作用是讲之前版本中脏页的刷新操作都放入到单独的线程中来完成。其目的是减轻原 Master Thread 的工作及对于用户查询线程的阻塞。
+
+### 2.3.2 内存
+
+- **1.缓冲池**
+
+在内存中开辟一块空间存放：索引页、数据页、undo 页、插入缓冲、自适应哈希索引、InnoDB 存储的锁信息、数据字典信息。
+
+`innodb_buffer_pool_size` 设置缓冲池的大小
+
+`innodb_buffer_pool_instances` 设置缓冲池实例的个数（1.0.x斑版本开始）
+
+- **LRU List、Free List 和 Flush List**
+
+内存管理算法
+
+1. LRU（最近最少使用算法）
+
+LRU List 用来管理已经读取的页。最频繁使用的页在 LRU 列表的前端，而最少使用的页在 LRU 列表的尾端。InnoDB 引擎对 LRU 算法有优化，将新读取到的页插入到列表的 midpoint 位置，而不是尾端。
+
+`innodb_old_blocks_pct` 插入 LRU 列表的位置
+
+`innodb_old_blocks_time` 设置页读取到 mid 位置后需要等待多久才会被加入到 LRU 列表的热端
+
+2. Free
