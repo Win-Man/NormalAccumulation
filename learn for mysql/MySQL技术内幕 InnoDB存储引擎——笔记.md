@@ -76,3 +76,19 @@ InnoDB 存储引擎采用聚集的方式，因此每张表的存储都是按主�
 | 版本          | 功能                  |
 | -------------- | ----------------------|
 | 老版本 InnoDB  | 支持ACID、行锁设计、MVCC |
+| InnoDB 1.0.x | 继承了上述版本所有功能，增加了 compress 和dynamic 页格式 |
+| InnoDB 1.1.x | 继承了上述版本所有功能，增加了 Linux AIO、多回滚段 |
+| InnoDB 1.2.x | 继承了上述版本所有功能，增加了全文索引支持、在线索引添加 |
+
+## 2.3 InnoDB 体系架构
+
+![](http://jockchou.com/blog/img/innodb-1.png)
+
+后台线程的主要作用是负责刷新内存池的数据，保证缓冲池中的内存缓存的是最近的数据。此外将已修改的数据文件刷新到磁盘文件，同时保证在数据库发生异常的情况下 InnoDB 会恢复到正常运行状态。
+
+### 2.3.1 后台线程
+
+- **1.Master Thread**
+- **2.IO Thread**
+- **3.Purge Thread**
+- **4.Page Cleaner Thread**
