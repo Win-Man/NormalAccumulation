@@ -153,3 +153,82 @@ InnoDB 存储引擎首先将重做日志信息放入 redo log buffer ，然后�
 
 在 InnoDB 存储引擎中，对内存的管理是通过一种称为内存堆的方式进行的。在对一些数据结构本身的内存进行分配是，需要从额外的内存池中进行申请，当该区域的内存不够是，会从缓冲池中进行申请。
 
+## 2.4 Checkpoint 技术
+
+当前事务数据库系统普遍采用了 Write Ahead Log 策略，即当事务提交时，先写重做日志，再修改页。
+
+Checkpoint 技术的目的：
+
+- 缩短数据库的恢复时间
+- 缓冲池不够用是，刷新脏页
+- 重做日志不可用时，刷新脏页
+
+重做日志出现不可用的情况是因为当前事务数据库系统对重做日志的设计都是循环使用的，并不是让其无线增大的。
+
+对 InnoDB 存储引擎而言，是通过 LSN（Log Sequence Number）来标记版本的。 LSN 实际上对应日志文件的偏移量。
+
+在 InnoDB 存储引擎内部，氛分为两种 Checkpoint，分别是：**Sharp Checkpoint**、**Fuzzy Checkpoint**。
+
+**Sharp Checkpoint**发生在数据库关闭时将所有的脏页都刷新回磁盘，这是默认的工作方式，即参数 `innodb_fast_shutdown=1`。
+
+**Fuzzy Checkponit**是数据库在运行过程中采用的 Checkpint 方式，其包括四种情况：
+
+- Master Thread Checkpoint
+
+每秒或者每十秒的速度从缓冲池的脏页列表中刷新一定比例的页回磁盘。这个过程是异步的，即此时 InnoDB 存储引擎可以进行其他的操作，用户查询线程不会阻塞。
+
+- FLUSH_LRU_LIST Checkpoint
+
+为保证 LRU 列表中差不多存在 100 个空闲页可供使用
+参数 `innodb_lru_scan_depth` 控制 LRU 列表中可用页的数量
+
+- Async/Sync Flush Checkpoint
+
+指的是重做日志文件不可用的情况，这时需要强制将一些页刷新回磁盘。
+
+- Dirty Page too much Checkpoint
+
+脏页的数量太多，导致 InnoDB 存储引擎强制进行 Checkpoint。其目的总的来说还是为了保证缓冲池中有足够可用的页。
+参数 `innodb_max_dirty_pages_pct` 设置缓冲池中脏页的百分比，达到百分比后就进行 Checkpoint 。
+
+## 2.5 Master Thread 工作方式
+
+### 2.5.1 InnoDB 1.0.x 版本之前的 Master Thread
+
+Master Thread 具有最高的线程优先级别。其内部由多个循环（loop）组成：主循环（loop）、后台循环（background loop）、刷新循环（flush loop）、暂停循环（suspend loop）。
+
+主循环包括两大部分的操作：每秒钟的操作和每 10 秒的操作。
+
+主循环每秒钟的操作包括：
+- 日志缓冲刷新到磁盘，即使这个事务还没有提交（总是）
+- 合并插入缓冲（可能）
+- 至多刷新 100 个 InnoDB 的缓冲池中的脏页到磁盘（可能）
+- 如果当前没有用户活动，则切换到 background loop （可能）
+
+主循环每 10 秒的操作包括：
+- 刷新 100 个脏页到磁盘（可能的情况下）
+- 合并至多 5 个插入缓冲（总是）
+- 将日志缓冲刷新到磁盘（总是）
+- 删除无用的 Undo 页（总是）
+- 刷新 100 个或者 10 个脏页到磁盘（总是）
+
+后台循环（background loop）操作包括：
+- 删除无用的 Undo 页（总是）
+- 合并 20 个插入缓冲（总是）
+- 跳回到主循环（总是）
+- 不断刷新 100 个页知道符合条件（可能，跳转到 flush loop 中完成）
+
+### 2.5.2 InnoDB 1.2.x 版本之前的Master Thread
+
+从 InnoDB 1.0.x开始，提供参数 `innodb_io_capacity` ，用来表示磁盘 IO 的吞吐量，默认值200.对于刷新到磁盘也的数量，会按照 innodb_io_capacity 的百分比来进行控制。
+- 在合并插入缓冲，合并插入缓冲的数量为 innodb_io_capacity 值为 5%
+- 在从缓冲区刷新脏页时，刷新脏页的数量为innodb_io_capacity
+
+
+InnoDB 1.0.x 版本带来的另一个参数是 `innodb_adaptive_flushing`（自适应地刷新），该值影响每秒刷新脏页的数量。原来的刷新规则是：脏页的缓冲池所占的比例小于 `innodb_max_dirty_pages_pct` 时，不刷新脏页；大于 `innodb_max_dirty_pages_pct` 时，刷新 100 个脏页。随着 `innodb_adaptive_flushing` 参数的引入，InnoDB 存储引擎会通过一个名为 `buf_flush_get_desired_flush_rate` 的函数来判断需要刷新脏页的最合适的数量。粗略地翻阅源代码后发现 `buf_flush_get_desired_flush_rate` 通过判断产生重做日志的速度来决定最合适的刷新脏页数量。因此，当脏页的比例小于　`innodb_max_dirty_pages_pct` 时，也会刷新一定量的脏页。
+
+InnoDB 1.0.x版本引入参数 `innodb_purge_batch_size` 控制每次 flush purge 回收的 Undo 页的数量。
+
+### 2.5.3 InnoDB 1.2.x 版本的 Master Thread
+
+对于刷新脏页的操作，从 Master Thread 线程分离到一个单独的 Page Cleaner Thread，从而减轻了 Master Thread 的工作，同时进一步提高了系统的并发性。
