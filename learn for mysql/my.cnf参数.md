@@ -7,9 +7,13 @@
 `binlog-do-db = master_slave` //允许该db相关操作写到binlog中
 
 `basedir = /usr/local/mysql` //mysql所在目录
+
 `datadir =/usr/local/mysql/data` // mysql的data目录
+
 `port = 3306` //mysql启动端口
+
 `server_id = 2433306` //mysql实例的id，主从结构时不能重复
+
 `socket = .....` // mysql sock文件所在地址
 
 
