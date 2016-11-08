@@ -16,6 +16,12 @@
 
 `socket = .....` // mysql sock文件所在地址
 
+`read_only` //设置数据库为只读状态
+
+`sync_binlog = 1` //每经过 n 次日志写就把日志文件写入硬盘一次
+
+
+
 
 sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
 
