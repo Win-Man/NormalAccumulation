@@ -20,6 +20,8 @@
 
 `sync_binlog = 1` //每经过 n 次日志写就把日志文件写入硬盘一次
 
+`binlog-format=ROW` // 设置 binlog 记录形式，是基于行的还是基于语句的还是混合的
+
 
 
 
