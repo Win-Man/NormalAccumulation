@@ -232,3 +232,20 @@ InnoDB 1.0.x版本引入参数 `innodb_purge_batch_size` 控制每次 flush purg
 ### 2.5.3 InnoDB 1.2.x 版本的 Master Thread
 
 对于刷新脏页的操作，从 Master Thread 线程分离到一个单独的 Page Cleaner Thread，从而减轻了 Master Thread 的工作，同时进一步提高了系统的并发性。
+
+## 2.6 InnoDB 关键特性
+
+InnoDB 存储引擎的关键特性包括：
+- 插入缓冲（Insert Buffer）
+- 两次写（Double Write）
+- 自适应哈希索引(Adaptive Hash Index)
+- 异步 IO（Async IO）
+- 刷新邻接页（Flush Neighbor Page）
+
+### 2.6.1 插入缓冲
+
+InnoDB 存储引擎开创性的设计了 Insert Buffer，对于非聚集索引的插入或更新操作，不是每一次直接插入到索引页中，而是先判断插入的非聚集索引页是否在缓冲池中，若在，则直接插入；若不在，则先放入到一个 Insert Buffer 对象中，好似欺骗数据库这个非聚集的索引已经插到叶子节点，而实际并没有，只是存放在另一个位置。然后再以一定频率和情况进行 Insert Buffer 和辅助索引叶子节点的 merge 操作，这时通常能将多个插入合并到一个操作中，这就大大提高了对于非聚集索引插入的性能。
+
+Insert Buffer 使用需要满足条件:
+- 索引是辅助索引
+- 索引不是唯一的
