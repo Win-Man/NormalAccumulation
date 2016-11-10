@@ -249,3 +249,149 @@ InnoDB 存储引擎开创性的设计了 Insert Buffer，对于非聚集索引�
 Insert Buffer 使用需要满足条件:
 - 索引是辅助索引
 - 索引不是唯一的
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 第3章 文件
+
+## 3.1 参数文件
+
+通过命名 `mysql --help | grep my.cnf` 查找 MySQL 实例读取配置文件的顺序
+
+### 3.1.1 什么是参数
+
+通过命令 `SHOW VARIABLES LIKE '******'` 或者通过 information_schema 架构下的 GLOBAL_VARIABLES 视图进行查看
+
+### 3.1.2 参数类型
+
+- 动态参数
+- 静态参数
+
+动态参数可以通过 
+```
+SET 
+	| [global | session] system_var_name=expr
+	| [@@global. | @@session. | @@] system_var_name=expr
+```
+设置参数。
+
+通过
+```
+SELECT [@@global | @@session].system_var_name
+```
+查看不同作用域的参数值
+
+对变量的全局值进行了修改，在这次的实例生命周期内都有效，但 MySQL 实例本身并不会对参数文件中的该值进行修改。
+
+## 3.2 日志文件
+
+- 错误日志（error log）
+- 二进制日志（binlog）
+- 慢查询日志（slow query log）
+- 查询日志（log）
+
+### 3.2.1 错误日志
+
+错误日志文件对 MySQL 的启动、运行、关闭过程进行了记录。
+
+`SHOW VARIABLES LIKE 'log_error'\G`
+查看错误日志文件所在目录
+
+### 3.2.2 满查询日志
+
+可以在 MySQL 启动时设一个阈值，将运行时间超过该值的所有 SQL 语句都记录到慢查询日志文件中。
+
+`SHOW VARIABLES LIKE 'long_query_time'\G`查询阈值时间
+
+`SHOW VARIABLES LIKE 'log_slow_queries'\G`查询慢日志文件是否开启
+
+`SHOW VARIABLES LIKE 'log_queries_not_using_indexs'\G`查询慢日志文件是否将不使用索引的 SQL 语句记录到慢查询日志文件中。
+
+参数 log_output 指定了慢查询输出的格式，默认为 FILE，可以将它设为 TABLE。
+
+### 3.2.3 查询日志
+
+查询日志记录了所有对 MySQL 数据库请求的信息，无论这些请求是否得到了正确的执行。
+
+### 3.2.4 二进制日志
+
+二进制日志记录了对 MySQL 数据库执行更改的所有操作，但是不包括 SELECT 和 SHOW 这类操作，因为这类操作对数据本身并没有修改。然而，若操作本事并没有导致数据库发生变化，那么该操作可能也会写入二进制日志。
+
+二进制日志文件作用：
+- 恢复
+- 复制
+- 审计
+
+二进制日志记录相关配置文件的参数：
+- max_binlog_size 指定单个二进制日志文件的最大值，如果超过该值，则产生新的二进制日志文件
+- binlog_cache_size 是基于会话的，当一个事务的记录大于设定的 binlog_cache_size 时，MySQL 会把缓冲池中的日志写入一个**临时文件**中
+- sync_binlog 表示每写缓冲多少次就同步到磁盘
+- binlog-do-db
+- binlog-ignore-db
+- log-slave-update
+- binlog_format
+
+## 3.3 套接字文件
+
+在 UNIX 系统下本地连接 MySQL 可以采用 UNIX 域套接字方式，这种方式需要一个套接字（socket）文件。套接字文件可由参数 socket 控制。一般在 /tmp 目录下。
+
+`SHOW VARIABLES LIKE 'socket'\G` 查看套接字文件所在目录
+
+## 3.4 pid 文件
+
+当 MySQL 实例启动时，会将自己的进程 ID 写入一个文件中——该文件即为 pid 文件。
+
+`SHOW VARIABLES LIKE 'pid_file'\G`查看pid文件所在位置
+
+## 3.5 表结构定义文件
