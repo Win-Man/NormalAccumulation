@@ -502,3 +502,45 @@ InnoDB 1.0.x 版本开始引入了新的文件格式，以前支持的 Compact �
 
 在 InnoDB 存储引擎内部，CHAR 类型被明确视为了变长类型，对于未能占满长度的字符还是填充 0x20。 因此可以认为子啊多字节字符集的情况下，CHAR 和 VARCHAR 的实际行存储基本是没有区别的。
 
+## 4.4 InnoDB 数据页结构
+
+InnoDB 数据页由以下 7 个部分组成：
+- File Header（文件头）
+- Page Header（页头）
+- Infimun 和 Supremum Records
+- User Recorder（用户记录，即行记录）
+- Free Space（空闲空间）
+- Page Directory（页目录）
+- File Trailer（文件结尾信息）
+
+### 4.4.1 File Header
+
+File Header 用来记录页的一些信息头。
+
+### 4.4.2 Page Header
+
+Page Header 用来记录数据页的状态信息。
+
+### 4.4.3 Infimum 和 Supremum Record
+
+在 InnoDB 存储引擎中，每个数据页中有两个虚拟的行记录，用来限定记录的边界。
+
+Infimum 记录的是比该页中任何主键值都要小的值。
+
+Supremum 指比任何可能大的值还要大的值。
+
+**这两个值在页创建时被建立，并且在任何情况下不会被删除。**
+
+### 4.4.4 User Record 和 Free Record
+
+User Record 即实际存储行记录的内容。
+
+Free Record 即空闲空间，是一个链表数据结构。
+
+### 4.4.5 Page Directory
+
+Page Directory 中存放了记录的相对位置。
+
+**B+ 树索引本身并不能找到具体的一条记录，能找到只是该记录所在的页。数据库把页载入到内存，然后通过 Page Directory 再进行二叉查找。只不过二叉查找的时间复杂度很低，同时在内存中的查找很快，因此通常忽略这部分查找所用的时间。**
+
+
