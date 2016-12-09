@@ -25,7 +25,7 @@ class List(object):
 
     def insert(self,pos,value):
         if pos > self.__size:
-            raise Exception('The insert pos is out of range')
+            raise Exception('The insert position is out of range')
         if pos == 0:
             new_node = Node(value)
             new_node.next = self.head
@@ -38,6 +38,16 @@ class List(object):
             new_node.next = current.next
             current.next = new_node
         self.__size = self.__size + 1
+
+
+    def get(self,pos):
+        if pos > self.__size:
+            raise Exception('The position is out of range')
+        current = self.head
+        for i in range(0,pos):
+            current = current.next
+        return current.value
+
 
     # delete the first node of value
     def delete_one(self,value):
@@ -99,3 +109,5 @@ if __name__ == '__main__':
     l.insert(1,3)
     l.insert(1,4)
     l.show()
+    a = l.get(3)
+    print a
